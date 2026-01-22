@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Md. Mohaiminul Islam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #8183f4;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+            --teal: #64ffda;
+            --teal-dark: #1ce9b6;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --orange: #f97316;
+            --pink: #ec4899;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--dark);
+            color: white;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #0f172a 0%, #06102d 100%);
+            overflow: hidden;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 200;
+            background: white;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            letter-spacing: -1px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--teal);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 3px;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--teal);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+            background: var(--teal);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            color: var(--teal);
+            transform: scale(1.1);
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            padding: 6rem 2rem 2rem;
+            z-index: 999;
+            flex-direction: column;
+            justify-content: flex-start;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .mobile-nav.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mobile-nav a {
+            display: block;
+            color: var(--gray);
+            text-decoration: none;
+            padding: 1.2rem 0;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .mobile-nav a:hover {
+            color: white;
+            padding-left: 1rem;
+        }
+
+        .mobile-nav a.active {
+            color: var(--teal);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            min-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 1.5rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                            rgba(99, 102, 241, 0.1) 0%, 
+                            rgba(168, 85, 247, 0.05) 50%, 
+                            rgba(236, 72, 153, 0.08) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        .contact-card:hover::before {
+            opacity: 1;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .contact-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .contact-title i {
+            color: var(--teal);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 50%;
+        }
+        
+        .contact-desc {
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Contact Links */
+        .contact-links {
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            background: rgba(99, 102, 241, 0.08);
+            border-radius: 12px;
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .contact-link:hover {
+            background: rgba(99, 102, 241, 0.15);
+            color: white;
+            transform: translateX(8px);
+            border-color: rgba(100, 255, 218, 0.3);
+        }
+        
+        .contact-link i {
+            color: var(--teal);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Form */
+        .contact-form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            background: rgba(100, 255, 218, 0.05);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.15);
+        }
+        
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .contact-form button {
+            background: linear-gradient(90deg, var(--teal-dark), var(--teal));
+            color: var(--dark);
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            width: 100%;
+            margin-top: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .contact-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Social Footer */
+        .social-footer {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 3rem 2rem;
+            margin-top: auto;
+            background: rgba(15, 23, 42, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .social-icon {
+            color: var(--gray);
+            font-size: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            color: var(--teal);
+            transform: translateY(-5px) scale(1.1);
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid var(--teal);
+            color: var(--teal);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Floating elements */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1200px) {
+            .contact-grid {
+                gap: 1.5rem;
+            }
+            
+            .contact-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .contact-section {
+                padding: 3rem 1.5rem 2rem;
+            }
+            
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .contact-title {
+                font-size: 1.4rem;
+            }
+
+            .contact-title i {
+                width: 36px;
+                height: 36px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .contact-section {
+                padding: 2.5rem 1rem 1.5rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-card {
+                padding: 1.8rem 1.5rem;
+            }
+            
+            .social-footer {
+                padding: 2rem 1rem;
+                gap: 1.5rem;
+            }
+
+            .social-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+            }
+
+            .mobile-nav {
+                padding: 6rem 1.5rem 2rem;
+            }
+
+            .mobile-nav a {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+
+    <header class="header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Md. Mohaiminul Islam</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="resume.html">Resume</a>
+                <a href="#contact" class="active">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="#contact" class="active">Contact</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h1 class="section-title">Let's Build Something Amazing</h1>
+                <p class="section-subtitle">I'm currently open to new opportunities, collaborations, or just a friendly chat about tech and innovation. Reach out and let's create something extraordinary together!</p>
+            </div>
+            
+            <div class="contact-grid">
+                <!-- Contact Info Card -->
+                <div class="contact-card floating" style="animation-delay: 0.1s;">
+                    <h3 class="contact-title"><i class="fas fa-paper-plane"></i>Direct Contact</h3>
+                    <p class="contact-desc">Prefer direct communication? Here are the best ways to reach me quickly for immediate response:</p>
+                    
+                    <div class="contact-links">
+                        <a href="mailto:anirbanmahin@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>anirbanmahin@gmail.com
+                        </a>
+                        <a href="mailto:mohaiminul368@gmail.com" class="contact-link">
+                            <i class="fas fa-envelope"></i>mohaiminul368@gmail.com
+                        </a>
+                        <a href="tel:+8801581708996" class="contact-link">
+                            <i class="fas fa-phone"></i>+8801581708996
+                        </a>
+                        <a href="https://wa.me/+8801581708996" class="contact-link">
+                            <i class="fab fa-whatsapp"></i> WhatsApp/Call
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Social Media Card -->
+                <div class="contact-card floating" style="animation-delay: 0.2s;">
+                    <h3 class="contact-title"><i class="fas fa-share-alt"></i>Social Profiles</h3>
+                    <p class="contact-desc">Connect with me on professional networks or check out my latest projects and contributions:</p>
+                    
+                    <div class="contact-links">
+                        <a href="https://www.linkedin.com/in/md-mohaiminul-islam-641936285/" target="_blank" class="contact-link">
+                            <i class="fab fa-linkedin-in"></i> LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/mohaiminul-islam-git" target="_blank" class="contact-link">
+                            <i class="fab fa-github"></i> GitHub Projects
+                        </a>
+                        <a href="https://x.com/mohaiminul368" target="_blank" class="contact-link">
+                            <i class="fab fa-twitter"></i> Tech Thoughts
+
+                        <a href="https://www.facebook.com/mahtab.mohaimin" target="_blank" class="contact-link">
+                            <i class="fab fa-facebook-f"></i> Facebook Profile
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact Form Card -->
+                <div class="contact-card floating" style="animation-delay: 0.3s;">
+                    <h3 class="contact-title"><i class="fas fa-envelope-open-text"></i>Send a Message</h3>
+                    <p class="contact-desc">Have a project in mind or want to discuss opportunities? Send me a message and I'll get back to you within 24 hours.</p>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <div class="contact-form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="from_name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="from_email" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="subject">What would you like to discuss?</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select topic</option>
+                                <option value="Project Collaboration">Project Collaboration</option>
+                                <option value="Job Opportunity">Job Opportunity</option>
+                                <option value="Freelance Work">Freelance Work</option>
+                                <option value="Technical Consultation">Technical Consultation</option>
+                                <option value="Other Inquiry">Other Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Hi Mohaiminul, I'd like to discuss..." required></textarea>
+                        </div>
+                        <button type="submit">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i> Thank you for your message! I'll get back to you within 24 hours.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="social-footer">
+        <a href="https://www.facebook.com/mahtab.mohaimin" target="_blank" aria-label="Facebook" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://x.com/mohaiminul368" target="_blank" aria-label="Twitter" class="social-icon">
+            <i class="fab fa-twitter"></i>
+        <a href="https://www.linkedin.com/in/md-mohaiminul-islam-641936285/" target="_blank" aria-label="LinkedIn" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/mohaiminul-islam-git" target="_blank" aria-label="GitHub" class="social-icon">
+            <i class="fab fa-github"></i>
+        </a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle with improved behavior
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const body = document.body;
+            
+            if (mobileMenuBtn && mobileNav) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileNav.classList.toggle('active');
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    this.innerHTML = isExpanded ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
+                    
+                    // Toggle body scroll
+                    if (!isExpanded) {
+                        body.style.overflow = 'hidden';
+                    } else {
+                        body.style.overflow = '';
+                    }
+                });
+                
+                const mobileLinks = mobileNav.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileNav.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        body.style.overflow = '';
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!mobileNav.contains(e.target)) {
+                        mobileNav.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        body.style.overflow = '';
+                    }
+                });
+            }
+
+            // Form submission handling
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            if (contactForm && successMessage) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Show loading state
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        this.reset();
+                        successMessage.style.display = 'block';
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    }, 1500);
+                });
+            }
+
+            // Header scroll effect with improved performance
+            const header = document.querySelector('.header');
+            let lastScroll = 0;
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const currentScroll = window.pageYOffset;
+                        
+                        if (currentScroll <= 0) {
+                            header.style.transform = 'translateY(0)';
+                            header.style.boxShadow = 'none';
+                            return;
+                        }
+                        
+                        if (currentScroll > lastScroll && !mobileNav.classList.contains('active')) {
+                            // Scroll down
+                            header.style.transform = 'translateY(-100%)';
+                            header.style.boxShadow = 'none';
+                        } else if (currentScroll < lastScroll) {
+                            // Scroll up
+                            header.style.transform = 'translateY(0)';
+                            header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.2)';
+                        }
+                        
+                        lastScroll = currentScroll;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            });
+
+            // Add animation class to elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.contact-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('floating');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+
+    
+    // Initialize EmailJS
+    emailjs.init('unq7fMo86eSyMTLMt');
+    
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Prepare the email subject
+            const subject = this.querySelector('#subject').value;
+            const emailSubject = `New Message: ${subject}`;
+            
+            // Create hidden input for subject if needed
+            let subjectInput = this.querySelector('input[name="email_subject"]');
+            if (!subjectInput) {
+                subjectInput = document.createElement('input');
+                subjectInput.type = 'hidden';
+                subjectInput.name = 'email_subject';
+                this.appendChild(subjectInput);
+            }
+            subjectInput.value = emailSubject;
+            
+            // Send the email
+            const response = await emailjs.sendForm(
+                'service_dnvkizs', 
+                'template_25yt31h', 
+                this
+            );
+            
+            console.log('Email sent successfully:', response);
+            this.reset();
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+            
+        } catch (error) {
+            console.error('Email sending failed:', error);
+            
+            let errorMessage = 'Failed to send message. ';
+            if (error.text) {
+                if (error.text.includes('Invalid')) {
+                    errorMessage += 'Please check your form inputs.';
+                } else {
+                    errorMessage += `Server responded with: ${error.text}`;
+                }
+            } else {
+                errorMessage += 'Please check your internet connection.';
+            }
+            
+            alert(errorMessage);
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+    </script>
+</body>
+</html>
